@@ -59,8 +59,10 @@ methods = [(bisection,      "Bisection method"),
            (secantMethod,   "Secant method")]
 
 outputString f f' a b eps = 
-  let intervals = separateRoots f 10 0 a b
-  in  foldl (\s (method, name) -> s ++ name ++ "\n" ++ (showResults eps f f' intervals method ) ++ "\n\n") "Nonlinear equations\n f = sqrt(4x+7) -3cos(x)\n" methods 
+  let intervals = separateRoots f 8 0 a b
+  in  "Separated roots:\n" ++
+      (show intervals) ++ "\n" ++ 
+      foldl (\s (method, name) -> s ++ name ++ "\n" ++ (showResults eps f f' intervals method ) ++ "\n\n") "Nonlinear equations\n f = sqrt(4x+7) -3cos(x)\n" methods 
 
 promt s = do
   putStrLn s
@@ -70,6 +72,5 @@ main = do
   a <- promt "Enter begin"
   b <- promt "Enter end"
   eps <- promt "Enter epsilon"
-  putStrLn "123"
   putStrLn (outputString f f' (read a :: Double) (read b :: Double) (read eps ::Double))
     
